@@ -1,0 +1,55 @@
+services:
+  agentic-ledger:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agentic-ledger
+    env_file:
+      - .env
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - GCP_PROJECT_ID=${GCP_PROJECT_ID:-}
+      - TTS_MODEL=${TTS_MODEL:-gpt-4o-mini-tts}
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o}
+    volumes:
+      - ./output:/app/output
+      - ./assets:/app/assets:ro
+      - ./temp:/app/temp
+    # Run modes:
+    #   docker compose run --rm agentic-ledger
+    #   docker compose run --rm agentic-ledger --dry-run
+    #   docker compose run --rm agentic-ledger --sample
+
+  # Scheduler service for daily automated runs
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agentic-ledger-scheduler
+    env_file:
+      - .env
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - GCP_PROJECT_ID=${GCP_PROJECT_ID:-}
+    volumes:
+      - ./output:/app/output
+      - ./assets:/app/assets:ro
+      - ./temp:/app/temp
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        while true; do
+          echo "Running The Agentic Ledger pipeline..."
+          python -m src.main --skip-upload
+          echo "Pipeline complete. Sleeping until next run..."
+          sleep 86400
+        done
+    restart: unless-stopped
+    profiles:
+      - scheduled
+
+networks:
+  default:
+    name: agentic-ledger-network

@@ -1,0 +1,27 @@
+# Core dependencies (pinned for reproducible builds)
+openai==1.68.0
+numpy==1.26.4
+pydub==0.25.1
+pydantic==2.10.6
+pydantic-settings==2.8.1
+tenacity==9.0.0
+feedparser==6.0.11
+requests==2.32.3
+
+# Google Cloud (optional for Cloud Logging)
+google-cloud-logging==3.12.1
+
+# YouTube Data API
+google-api-python-client==2.164.0
+
+# Browser automation (screenshots for video backgrounds)
+playwright==1.50.0
+
+# Image rendering (scene cards)
+Pillow==11.1.0
+
+# Audio processing
+# Note: pydub requires ffmpeg to be installed on the system
+
+# Type hints
+typing-extensions==4.12.2
