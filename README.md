@@ -1,8 +1,9 @@
 <p align="center">
-  <h1 align="center">The Agentic Ledger</h1>
-  <p align="center">
-    Fully autonomous AI pipeline that reads breaking news, matches it to arXiv papers via embedding convergence, and produces a broadcast-quality two-host podcast — zero human input.
-  </p>
+  <img src="docs/images/agentic-ledger-logo.png" alt="The Agentic Ledger" width="100%">
+</p>
+
+<p align="center">
+  <strong>Fully autonomous AI pipeline that reads breaking news, matches it to arXiv papers via embedding convergence, and produces a broadcast-quality two-host podcast — zero human input.</strong>
 </p>
 
 <p align="center">
